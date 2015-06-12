@@ -25,6 +25,7 @@ public class BlackJack extends JFrame {
 	private JLabel lblTable = new JLabel("Table");
 	private JLabel lblplayer1 = new JLabel("player1");
 	private JLabel lblplayer2 = new JLabel("player2");
+	//private JLabel lblEND;
 	private JButton AddCard = new JButton("HIT");
 	private JButton NoAddCard = new JButton("STAND");
 	private JButton btnReady = new JButton("READY");
@@ -103,7 +104,8 @@ public class BlackJack extends JFrame {
 		panelSET.setLayout(null);
 		panelSET.setBorder(new LineBorder(Color.red, 10));
 		
-		
+//		panelSET.add(lblEND);
+//		lblEND.setBounds(43, 200, 60, 15);
 		
 		AddCard.setBounds(40, 30, 120, 60);
 		panelSET.add(AddCard);
@@ -232,12 +234,15 @@ public class BlackJack extends JFrame {
 		
 		if(Count1>Count0 && dead1==false){
 			System.out.println("player2 WIN");
+//			 lblEND = new JLabel("player2 WIN");
 		}
 		else if(Count0>Count1 && dead0 ==false){
 			System.out.println("player1 WIN");
+//			lblEND = new JLabel("player1 WIN");
 		}
 		else if(dead1==false && dead1==false){
 			System.out.println("Both  Lose");
+//			lblEND = new JLabel("Both  Lose");
 		}
 	}	
 	
