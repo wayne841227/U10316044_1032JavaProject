@@ -1,480 +1,275 @@
-import java.awt.BorderLayout;
+
+
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
 
 
 public class BlackJack extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel panelSET = new JPanel();
+	private JPanel panelC = new JPanel();
+	private JLabel lblTable = new JLabel("Table");
+	private JLabel lblplayer1 = new JLabel("player1");
+	private JLabel lblplayer2 = new JLabel("player2");
+	private JButton AddCard = new JButton("HIT");
+	private JButton NoAddCard = new JButton("STAND");
+	private JButton btnReady = new JButton("READY");
+	
+	private JPanel panelLineN = new JPanel();
+	private JPanel panelLineS = new JPanel();
+	
+	private int points;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BlackJack frame = new BlackJack();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	
 	final int FINAL_CARDS_NUMBER = 52;
 
     ImageIcon[] CARDS  = new ImageIcon [FINAL_CARDS_NUMBER];
         
-    ArrayList<ImageIcon> list = new ArrayList<ImageIcon>();
+    ArrayList<JLabel> list = new ArrayList<JLabel>();
+    
+    int[][] player = new int[4][5];
+    
+    int [] card1;
+    JLabel picture[] = new JLabel[FINAL_CARDS_NUMBER];
+    
 
-	
 	DeckOfCards card = new DeckOfCards();
-
-
-//	JLabel picture1 ;
-//	JLabel picture2 ;
-//	JLabel picture3 ;
-//	JLabel picture4 ;
-//	JLabel picture5 ;
-//	JLabel picture6 ;
-//	JLabel picture7 ;
-//	JLabel picture8 ;
-//	JLabel picture9 ;
-//	JLabel picture10 ;
-//	JLabel picture11 ;
-//	JLabel picture12 ;
-//	JLabel picture13 ;
-//	JLabel picture14 ;
-//	JLabel picture15 ;
-//	JLabel picture16 ;
-//	JLabel picture17 ;
-//	JLabel picture18 ;
-//	JLabel picture19 ;
-//	JLabel picture20 ;
-//	JLabel picture21 ;
-//	JLabel picture22 ;
-//	JLabel picture23 ;
-//	JLabel picture24 ;
-//	JLabel picture25 ;
-//	JLabel picture26 ;
-//	JLabel picture27 ;
-//	JLabel picture28 ;
-//	JLabel picture29 ;
-//	JLabel picture30 ;
-//	JLabel picture31 ;
-//	JLabel picture32 ;
-//	JLabel picture33 ;
-//	JLabel picture34 ;
-//	JLabel picture35 ;
-//	JLabel picture36 ;
-//	JLabel picture37 ;
-//	JLabel picture38 ;
-//	JLabel picture39 ;
-//	JLabel picture40 ;
-//	JLabel picture41 ;
-//	JLabel picture42 ;
-//	JLabel picture43 ;
-//	JLabel picture44 ;
-//	JLabel picture45 ;
-//	JLabel picture46 ;
-//	JLabel picture47 ;
-//	JLabel picture48 ;
-//	JLabel picture49 ;
-//	JLabel picture50 ;
-//	JLabel picture51 ;
-//	JLabel picture52 ;
-
+	Ready ready = new Ready();
+//	Show show = new Show();
 	
+	int Count1 = 0;
+	int Count0 =0;
+	int CardOrder = 4;
+	int MyOrder = 2;
+	int OneOrder = 2;
+	boolean dead0 = false ;
+	boolean dead1 = false ;
 	
 
-	/**
-	 * Create the frame.
-	 */
-	public BlackJack() {
+	BlackJack() {
+		
+		for(int i=0; i<4;i++){
+			for(int j =0;j<5;j++){
+				player[i][j] = -1;
+			}
+		}
+		
+				
 		
 		
+
 		for(int i = 0; i <FINAL_CARDS_NUMBER; i++){
-            CARDS[i] = new ImageIcon("/Users/wayne/Documents/workspace/104BlackJack/picture/card/" + (i + 1) + ".png");
-            
-            
-            list.add(CARDS[i]);
+            CARDS[i] = new ImageIcon("/Users/wayne/Documents/workspace/blackjack104/picture/card/" + (i + 1) + ".png");    
+			picture[i] = new JLabel(CARDS[i]);
+			//list.add(picture[i]);
         }
 		
+		card1 = card.deal(FINAL_CARDS_NUMBER);
+		
+		for(int i = 0; i <FINAL_CARDS_NUMBER; i++){
+			panelC.add(picture[card1[i]]);
+			picture[card1[i]].setBounds(300-i,200+i,78,100);
+		}
+		System.out.println("HEY!!"+card1[2]);
+		
 
-//        picture5 = new JLabel(list.get(card1[4]));
-//        picture6 = new JLabel(list.get(card1[5]));
-//        picture7 = new JLabel(list.get(card1[6]));
-//        picture8 = new JLabel(list.get(card1[7]));
-//        picture9 = new JLabel(list.get(card1[8]));
-//        picture10 = new JLabel(list.get(card1[9]));
-//        picture11 = new JLabel(list.get(card1[10]));
-//        picture12 = new JLabel(list.get(card1[11]));
-//        picture13 = new JLabel(list.get(card1[12]));
-//        picture14 = new JLabel(list.get(card1[13]));
-//        picture15 = new JLabel(list.get(card1[14]));
-//        picture16 = new JLabel(list.get(card1[15]));
-//        picture17 = new JLabel(list.get(card1[16]));
-//        picture18 = new JLabel(list.get(card1[17]));
-//        picture19 = new JLabel(list.get(card1[18]));
-//        picture20 = new JLabel(list.get(card1[19]));
-//        picture21 = new JLabel(list.get(card1[20]));
-//        picture22 = new JLabel(list.get(card1[21]));
-//        picture23 = new JLabel(list.get(card1[22]));
-//        picture24 = new JLabel(list.get(card1[23]));
-//        picture25 = new JLabel(list.get(card1[24]));
-//        picture26 = new JLabel(list.get(card1[25]));
-//        picture27 = new JLabel(list.get(card1[26]));
-//        picture28 = new JLabel(list.get(card1[27]));
-//        picture29 = new JLabel(list.get(card1[28]));
-//        picture30 = new JLabel(list.get(card1[29]));
-//        picture31 = new JLabel(list.get(card1[30]));
-//        picture32 = new JLabel(list.get(card1[31]));
-//        picture33 = new JLabel(list.get(card1[32]));
-//        picture34 = new JLabel(list.get(card1[33]));
-//        picture35 = new JLabel(list.get(card1[34]));
-//        picture36 = new JLabel(list.get(card1[35]));
-//        picture37 = new JLabel(list.get(card1[36]));
-//        picture38 = new JLabel(list.get(card1[37]));
-//        picture39 = new JLabel(list.get(card1[38]));
-//        picture40 = new JLabel(list.get(card1[39]));
-//        picture41 = new JLabel(list.get(card1[40]));
-//        picture42 = new JLabel(list.get(card1[41]));
-//        picture43 = new JLabel(list.get(card1[42]));
-//        picture44 = new JLabel(list.get(card1[43]));
-//        picture45 = new JLabel(list.get(card1[44]));
-//        picture46 = new JLabel(list.get(card1[45]));
-//        picture47 = new JLabel(list.get(card1[46]));
-//        picture48 = new JLabel(list.get(card1[47]));
-//        picture49 = new JLabel(list.get(card1[48]));
-//        picture50 = new JLabel(list.get(card1[49]));
-//        picture51 = new JLabel(list.get(card1[50]));
-//        picture52 = new JLabel(list.get(card1[51]));
 		
+//		JLabel [] c = getCards(picture);
 		
-		
-		
-		
-		
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 625);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panelN = new JPanel();
-		panelN.setBounds(0, 0, 600, 200);
-		contentPane.add(panelN);
-		panelN.setLayout(new GridLayout(1, 3, 0, 0));
 		
-		JPanel panelN1 = new JPanel();
-		panelN1.setForeground(new Color(0, 0, 0));
-		panelN.add(panelN1);
-		panelN1.setBorder(new LineBorder(Color.black, 1));
-		panelN1.setLayout(null);
 		
-		JLabel lblPlayer_5 = new JLabel("player 6");
-		lblPlayer_5.setBounds(6, 6, 61, 16);
-		panelN1.add(lblPlayer_5);
-		
-		JPanel panelN2 = new JPanel();
-		panelN.add(panelN2);
-		panelN2.setBorder(new LineBorder(Color.black, 1));
-		panelN2.setLayout(null);
-		
-		JLabel lblPlayer_4 = new JLabel("player 5");
-		lblPlayer_4.setBounds(6, 6, 61, 16);
-		panelN2.add(lblPlayer_4);
-		
-		JPanel panelN3 = new JPanel();
-		panelN.add(panelN3);
-		panelN3.setBorder(new LineBorder(Color.black, 1));
-		panelN3.setLayout(null);
-		
-		JLabel lblPlayer_3 = new JLabel("player 4");
-		lblPlayer_3.setBounds(6, 6, 61, 16);
-		panelN3.add(lblPlayer_3);
-		
-		JPanel panelS = new JPanel();
-		panelS.setBounds(0, 400, 600, 200);
-		contentPane.add(panelS);
-		panelS.setLayout(new GridLayout(1, 3, 0, 0));
-		
-		JPanel panelS1 = new JPanel();
-		panelS.add(panelS1);
-		panelS1.setBorder(new LineBorder(Color.black, 1));
-		panelS1.setLayout(null);
-		
-		JLabel lblPlayer_7 = new JLabel("player 8");
-		lblPlayer_7.setBounds(6, 6, 61, 16);
-		panelS1.add(lblPlayer_7);
-		
-		JPanel panelS2 = new JPanel();
-		panelS.add(panelS2);
-		panelS2.setBorder(new LineBorder(Color.black, 1));
-		panelS2.setLayout(null);
-		
-		JLabel lblPlayer = new JLabel("player 1");
-		lblPlayer.setBounds(6, 6, 61, 16);
-		panelS2.add(lblPlayer);
-		
-		JPanel panelS3 = new JPanel();
-		panelS.add(panelS3);
-		panelS3.setBorder(new LineBorder(Color.black, 1));
-		panelS3.setLayout(null);
-		
-		JLabel lblPlayer_1 = new JLabel("player 2");
-		lblPlayer_1.setBounds(6, 6, 61, 16);
-		panelS3.add(lblPlayer_1);
-		
-		JPanel panelW = new JPanel();
-		panelW.setForeground(Color.BLACK);
-		panelW.setBounds(0, 200, 150, 200);
-		contentPane.add(panelW);
-		panelW.setBorder(new LineBorder(Color.black, 1));
-		panelW.setLayout(null);
-		
-		JLabel lblPlayer_6 = new JLabel("player 7");
-		lblPlayer_6.setBounds(6, 6, 61, 16);
-		panelW.add(lblPlayer_6);
-		
-		JPanel panelE = new JPanel();
-		panelE.setBounds(450, 200, 150, 200);
-		contentPane.add(panelE);
-		panelE.setBorder(new LineBorder(Color.black, 1));
-		panelE.setLayout(null);
-		
-		JLabel lblPlayer_2 = new JLabel("player 3");
-		lblPlayer_2.setBounds(6, 6, 61, 16);
-		panelE.add(lblPlayer_2);
-		
-		JPanel panelSET = new JPanel();
 		panelSET.setBounds(600, 0, 200, 600);
 		contentPane.add(panelSET);
 		panelSET.setLayout(null);
 		panelSET.setBorder(new LineBorder(Color.red, 10));
 		
-		JButton AddCard = new JButton("HIT");
+		
+		
 		AddCard.setBounds(40, 30, 120, 60);
 		panelSET.add(AddCard);
 		
-		JButton NoAddCard = new JButton("STAND");
 		NoAddCard.setBounds(40, 120, 120, 60);
 		panelSET.add(NoAddCard);
 		
-		JPanel panelC = new JPanel();
-		panelC.setBounds(150, 200, 300, 200);
+		btnReady.setBounds(43, 413, 117, 29);
+		panelSET.add(btnReady);
+		
+		panelC.setBounds(0, 0, 600, 600);
 		contentPane.add(panelC);
 		panelC.setBorder(new LineBorder(Color.black, 1));
 		panelC.setLayout(null);
-//		MyDeck mydeck = new MyDeck();
 		
-		int card1[] = card.deal();
-        
-        JLabel picture1 = new JLabel(list.get(card1[0]));
-        JLabel picture2 = new JLabel(list.get(card1[1]));
-        JLabel picture3 = new JLabel(list.get(card1[2]));
-        JLabel picture4 = new JLabel(list.get(card1[3]));
-        JLabel picture5 = new JLabel(list.get(card1[4]));
-        JLabel picture6 = new JLabel(list.get(card1[5]));
-        JLabel picture7 = new JLabel(list.get(card1[6]));
-        JLabel picture8 = new JLabel(list.get(card1[7]));
-        JLabel picture9 = new JLabel(list.get(card1[8]));
-        JLabel picture10 = new JLabel(list.get(card1[9]));
-        JLabel picture11 = new JLabel(list.get(card1[10]));
-        JLabel picture12 = new JLabel(list.get(card1[11]));
-        JLabel picture13 = new JLabel(list.get(card1[12]));
-        JLabel picture14 = new JLabel(list.get(card1[13]));
-        JLabel picture15 = new JLabel(list.get(card1[14]));
-        JLabel picture16 = new JLabel(list.get(card1[15]));
-        JLabel picture17 = new JLabel(list.get(card1[16]));
-        JLabel picture18 = new JLabel(list.get(card1[17]));
-        JLabel picture19 = new JLabel(list.get(card1[18]));
-        JLabel picture20 = new JLabel(list.get(card1[19]));
-        JLabel picture21 = new JLabel(list.get(card1[20]));
-        JLabel picture22 = new JLabel(list.get(card1[21]));
-        JLabel picture23 = new JLabel(list.get(card1[22]));
-        JLabel picture24 = new JLabel(list.get(card1[23]));
-        JLabel picture25 = new JLabel(list.get(card1[24]));
-        JLabel picture26 = new JLabel(list.get(card1[25]));
-        JLabel picture27 = new JLabel(list.get(card1[26]));
-        JLabel picture28 = new JLabel(list.get(card1[27]));
-        JLabel picture29 = new JLabel(list.get(card1[28]));
-        JLabel picture30 = new JLabel(list.get(card1[29]));
-        JLabel picture31 = new JLabel(list.get(card1[30]));
-        JLabel picture32 = new JLabel(list.get(card1[31]));
-        JLabel picture33 = new JLabel(list.get(card1[32]));
-        JLabel picture34 = new JLabel(list.get(card1[33]));
-        JLabel picture35 = new JLabel(list.get(card1[34]));
-        JLabel picture36 = new JLabel(list.get(card1[35]));
-        JLabel picture37 = new JLabel(list.get(card1[36]));
-        JLabel picture38 = new JLabel(list.get(card1[37]));
-        JLabel picture39 = new JLabel(list.get(card1[38]));
-        JLabel picture40 = new JLabel(list.get(card1[39]));
-        JLabel picture41 = new JLabel(list.get(card1[40]));
-        JLabel picture42 = new JLabel(list.get(card1[41]));
-        JLabel picture43 = new JLabel(list.get(card1[42]));
-        JLabel picture44 = new JLabel(list.get(card1[43]));
-        JLabel picture45 = new JLabel(list.get(card1[44]));
-        JLabel picture46 = new JLabel(list.get(card1[45]));
-        JLabel picture47 = new JLabel(list.get(card1[46]));
-        JLabel picture48 = new JLabel(list.get(card1[47]));
-        JLabel picture49 = new JLabel(list.get(card1[48]));
-        JLabel picture50 = new JLabel(list.get(card1[49]));
-        JLabel picture51 = new JLabel(list.get(card1[50]));
-        JLabel picture52 = new JLabel(list.get(card1[51]));
+
 		
-        panelC.add(picture1);
-		picture1.setBounds(100,10,80,120);
-		panelC.add(picture2);
-		picture2.setBounds(99,11,80,120);
-		panelC.add(picture3);
-		picture3.setBounds(98,12,80,120);
-		panelC.add(picture4);
-		picture4.setBounds(97,13,80,120);
-		panelC.add(picture5);
-		picture5.setBounds(96,14,80,120);
-		panelC.add(picture6);
-		picture6.setBounds(95,15,80,120);
-		panelC.add(picture7);
-		picture7.setBounds(94,16,80,120);
-		panelC.add(picture8);
-		picture8.setBounds(93,17,80,120);
-		panelC.add(picture9);
-		picture9.setBounds(92,18,80,120);
-		panelC.add(picture10);
-		picture10.setBounds(91,19,80,120);
-		panelC.add(picture11);
-		picture11.setBounds(90,20,80,120);
-		panelC.add(picture12);
-		picture12.setBounds(89,21,80,120);
-		panelC.add(picture13);
-		picture13.setBounds(88,22,80,120);
-		panelC.add(picture14);
-		picture14.setBounds(87,23,80,120);
-		panelC.add(picture15);
-		picture15.setBounds(86,24,80,120);
-		panelC.add(picture16);
-		picture16.setBounds(85,25,80,120);
-		panelC.add(picture17);
-		picture17.setBounds(84,26,80,120);
-		panelC.add(picture18);
-		picture18.setBounds(83,27,80,120);
-		panelC.add(picture19);
-		picture19.setBounds(82,28,80,120);
-		panelC.add(picture20);
-		picture20.setBounds(81,29,80,120);
-		panelC.add(picture21);
-		picture21.setBounds(80,30,80,120);
-		panelC.add(picture22);
-		picture22.setBounds(79,31,80,120);
-		panelC.add(picture23);
-		picture23.setBounds(78,32,80,120);
-		panelC.add(picture24);
-		picture24.setBounds(77,33,80,120);
-		panelC.add(picture25);
-		picture25.setBounds(76,34,80,120);
-		panelC.add(picture26);
-		picture26.setBounds(75,35,80,120);
-		panelC.add(picture27);
-		picture27.setBounds(74,36,80,120);
-		panelC.add(picture28);
-		picture28.setBounds(73,37,80,120);
-		panelC.add(picture29);
-		picture29.setBounds(72,38,80,120);
-		panelC.add(picture30);
-		picture30.setBounds(71,39,80,120);
-		panelC.add(picture31);
-		picture31.setBounds(70,40,80,120);
-		panelC.add(picture32);
-		picture32.setBounds(69,41,80,120);
-		panelC.add(picture33);
-		picture33.setBounds(68,42,80,120);
-		panelC.add(picture34);
-		picture34.setBounds(67,43,80,120);
-		panelC.add(picture35);
-		picture35.setBounds(66,44,80,120);
-		panelC.add(picture36);
-		picture36.setBounds(65,45,80,120);
-		panelC.add(picture37);
-		picture37.setBounds(64,46,80,120);
-		panelC.add(picture38);
-		picture38.setBounds(63,47,80,120);
-		panelC.add(picture39);
-		picture39.setBounds(62,48,80,120);
-		panelC.add(picture40);
-		picture40.setBounds(61,49,80,120);
-		panelC.add(picture41);
-		picture41.setBounds(60,50,80,120);
-		panelC.add(picture42);
-		picture42.setBounds(59,51,80,120);
-		panelC.add(picture43);
-		picture43.setBounds(58,52,80,120);
-		panelC.add(picture44);
-		picture44.setBounds(57,53,80,120);
-		panelC.add(picture45);
-		picture45.setBounds(56,54,80,120);
-		panelC.add(picture46);
-		picture46.setBounds(55,55,80,120);
-		panelC.add(picture47);
-		picture47.setBounds(54,56,80,120);
-		panelC.add(picture48);
-		picture48.setBounds(53,57,80,120);
-		panelC.add(picture49);
-		picture49.setBounds(52,58,80,120);
-		panelC.add(picture50);
-		picture50.setBounds(51,59,80,120);
-		panelC.add(picture51);
-		picture51.setBounds(50,60,80,120);
-		panelC.add(picture52);
-		picture52.setBounds(49,61,80,120);
+		panelLineN.setBounds(0,170,600,4);
+		panelC.add(panelLineN);
+		panelLineN.setBorder(new LineBorder(Color.blue, 2));
+		panelLineS.setBounds(0,430,600,4);
+		panelC.add(panelLineS);
+		panelLineS.setBorder(new LineBorder(Color.blue, 2));
 		
-		
-		JLabel lblTable = new JLabel("Table");
-		lblTable.setBounds(6, 6, 61, 16);
+		lblTable.setBounds(116, 186, 60, 15);
 		panelC.add(lblTable);
-	
-	
 		
-	
-	
-	
-	
+		lblplayer1.setBounds(116, 446, 60, 15);
+		panelC.add(lblplayer1);
+		
+		lblplayer2.setBounds(428, 143, 60, 15);
+		panelC.add(lblplayer2);
+
+		
+		this.setVisible(true);
+				
+		btnReady.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				ready.deal01(picture,card1);
+				ready.deal02(picture,card1);
+		
+				for(int i=0;i<4;i++){
+					
+					ready.addCARD(card1,i%2,i<2?0:1,i,player);
+
+				}
+			
+			}
+		});
+				
+		AddCard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ready.addCARD(card1,0,MyOrder,CardOrder, player);
+				
+				
+				System.out.println("HHH"+player[0][MyOrder]);
+				
+				ready.show0(picture,card1,CardOrder,MyOrder);
+				
+				int Count0 = 0;
+					for(int i=0;i<5;i++){
+						
+						Count0 += getPoints(player,0,i);
+						System.out.println("lll"+Count0);
+					}
+					
+					if(Count0>21){
+						System.out.println("爆了" + Count0);
+						dead0 = true;
+//						stack =1;
+					}
+				MyOrder++;
+				CardOrder++;
+				System.out.println("aaa~~ "+Count0);
+			}
+		});
+		
+		NoAddCard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+//				for(int i=0;i<5;i++){
+//					
+//					Count0 += getPoints(player,0,i);
+//					System.out.println("lll"+Count0);
+//				}
+//				System.out.println("aaa"+Count0);
+				
+				System.out.println(" fff " );
+				
+				Count1 += getPoints(player,1,0);
+				System.out.println("llasdl"+Count1);
+				Count1 += getPoints(player,1,1);
+				System.out.println("llldfg"+Count1);
+				
+				judge();
+				
+				
+			}
+		});
+		
 	}
+	
+	void judge(){
+		while(Count1<17){
+			ready.add1(card1,OneOrder,CardOrder, player);
+			ready.show1(picture,card1,CardOrder,OneOrder);
+			
+			System.out.println("HHHHH"+player[1][OneOrder]);
+			Count1 += getPoints(player,1,OneOrder);
+			
+			
+			System.out.println(" zxcvb "+getPoints(player,1,OneOrder));
+			System.out.println(" ; "+OneOrder);
+			
+			if(Count1>21){
+				System.out.println("11111爆了" + Count1);
+				dead1 = true;
+			}
+			MyOrder++;
+			CardOrder++;
+			System.out.println("aaa~~ "+Count1);
+		}	
+		System.out.println("bbb~~ "+Count1);
+		
+		if(Count1>Count0 && dead1==false){
+			System.out.println("player2 WIN");
+		}
+		else if(Count0>Count1 && dead0 ==false){
+			System.out.println("player1 WIN");
+		}
+		else if(dead1==false && dead1==false){
+			System.out.println("Both  Lose");
+		}
+	}	
+	
+	
+	int getPoints(int player[][],int person,int card){
+		
+		points = ((player[person][card])%13)+1;
+		
+		if(points>10){
+			points = 10;
+		}
+		
+		return points;
+	}
+	
 }
 
 
 class DeckOfCards {
 	
+	DeckOfCards(){
+		
+	}
 	
-	int[] deal(){
+	int[] deal(int num){
 		
-		final int dealNUM = 52;
 		
-	    int[] NUM = new int[dealNUM];
+	    int[] NUM = new int[num];
         int[] deck = new int[52];
     	String[] suits = {"Spades", "Hearts", "Diamonds", "Clubs"};
-    	String[] ranks = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9",
-      		"10", "Jack", "Queen", "King"};
+    	String[] ranks = {"1", "2", "3", "4", "5", "6", "7", "8", "9",
+      		"10", "11", "12", "13"};
         
     	// Initialize cards
     	for (int i = 0; i < deck.length; i++)
@@ -491,7 +286,7 @@ class DeckOfCards {
     	}
 
     	// Display the first dealNUM cards
-    	for (int i = 0; i < dealNUM; i++) {
+    	for (int i = 0; i < 52; i++) {
       		String suit = suits[deck[i] / 13];
       		String rank = ranks[deck[i] % 13];
       		System.out.println("Card number " + deck[i] + ": " 
@@ -504,7 +299,54 @@ class DeckOfCards {
   
 
 }
+
+class Ready{
 	
+	Ready(){
+	}
+	
+	int people = 10;
+	JLabel [] deal01(JLabel a[],int b[]){
+		
+		
+		a[b[0]].setBounds(105,480,78,100);
+		a[b[1]].setBounds(410,10,78,100);
 
+		
+		return a;
+	}
+	JLabel [] deal02(JLabel c[],int d[]){
+		
+		
+		c[d[2]].setBounds(105+78,480,78,100);
+		c[d[3]].setBounds(410-78,10,78,100);
 
-
+		
+		return c;
+	}
+	
+	void addCARD(int e[],int person,int handcard,int number,int [][] player){
+		
+		player[person][handcard] = e[number];
+		
+	}
+	JLabel [] show0 (JLabel a[],int b[],int c,int d){
+		
+		a[b[c]].setBounds(105+78*d,480,78,100);
+			
+		return a;
+	}
+	
+	void add1(int e[],int handcard,int number,int [][] player){
+		player[1][handcard] = e[number];
+		
+		
+	}
+	
+	JLabel [] show1( JLabel c[] , int d[] ,int e,int f){
+		
+		c[d[e]].setBounds(410-78*f,10,78,100);
+		
+		return c;
+	}
+}
